@@ -26,12 +26,12 @@ vector_db = QdrantVectorStore.from_existing_collection(
 
 
 
-def process_query(query : str){
+def process_query(query : str):
     print("Searching chunks for query !!")
     search_results = vector_db.similarity_search(query=query)
 
     context = "\n\n\n".join([f"Page Content : {result.page_content}\nPage Number : {result.metadata['page_label']}\nFile Location : {result.metadata['source']}"
-    for result in query_result])
+    for result in search_results])
 
 
     SYSTEM_PROMPT = f"""
@@ -50,4 +50,3 @@ def process_query(query : str){
     response = llm.invoke(messages)
     print(f"The response is : {response.content}")
     return response.content;
-}
