@@ -1,3 +1,4 @@
+from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_huggingface import HuggingFaceEmbeddings 
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_qdrant import QdrantVectorStore
@@ -44,7 +45,7 @@ def process_query(query : str):
     """
     messages = [
         SystemMessage(content=SYSTEM_PROMPT),
-        HumanMessage(content=user_query)
+        HumanMessage(content=query)
     ]
 
     response = llm.invoke(messages)
